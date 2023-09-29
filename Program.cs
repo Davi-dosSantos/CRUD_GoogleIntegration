@@ -16,11 +16,19 @@ namespace GoogleSheetsAndCsharp
         static readonly string sheet = "FirstPage";
         static SheetsService? service;
 
+
+
         static void Main(string[] args)
         {
-            string googleAPIKey ="AIzaSyA79XVffL0n5m2pvJ1_0Zx8jZ3HNRyZXkI"
-            string googleClientId = "360690838705-ndsllj69cv7jbbk8u1cnlfm2g34o39it.apps.googleusercontent.com";
-            string googleClientSecret = "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";
+            var config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+            string googleAPIKey = config["GoogleAPIKey"];
+            string googleClientId = config["GoogleClientId"];
+            string googleClientSecret = config["GoogleClientSecret"];
+
             string[] scopes = new[] { SheetsService.Scope.Spreadsheets };
 
             UserCredential credential = LoginAsync(googleClientId, googleClientSecret, scopes).Result;
